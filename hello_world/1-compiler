@@ -1,2 +1,2 @@
 #!/bin/bash
-cat -v main.o | head
+ export CFILE=1-main

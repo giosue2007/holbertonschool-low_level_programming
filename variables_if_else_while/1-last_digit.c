@@ -18,13 +18,13 @@ int main(void)
 
 	Gio = n % 10;
 
-	if(Gio > 5)
+	if (Gio > 5)
 	{
-		printf ("Last digit of %d is %d and is greater than 5\n", n, Gio);
+		printf("Last digit of %d is %d and is greater than 5\n", n, Gio);
 	}
 	else if (Gio == 0)
 	{
-		printf ("Last digit of %d is %d and is 0\n", n, Gio);
+		printf("Last digit of %d is %d and is 0\n", n, Gio);
 	}
 	else
 	{

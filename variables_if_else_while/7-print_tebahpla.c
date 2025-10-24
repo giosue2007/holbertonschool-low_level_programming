@@ -1,19 +1,19 @@
 #include <stdio.h>
 
 /**
- * main - Prints all single digit numbers of base 10 starting from 0
- *        using only putchar
+ * main - Prints the lowercase alphabet in reverse, followed by a new line
  *
  * Return: Always 0 (Success)
  */
 int main(void)
 {
-	int number;
+	char letter;
 
-	for (number = 0; number < 10; number++)
+	for (letter = 'z'; letter >= 'a'; letter--)
 	{
-		putchar(number + '0');
+		putchar(letter);
 	}
 	putchar('\n');
 	return (0);
 }
+

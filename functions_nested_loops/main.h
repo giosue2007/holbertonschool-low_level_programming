@@ -9,3 +9,5 @@ int _islower(int
 int main(void)
 {
 #endif /* MAIN_H */
+ c);
+int _isalpha(int c););

@@ -1,34 +1,18 @@
-#include <stdlib.h>
-#include <time.h>
-#include <stdio.h>
+#include "main.h"
 
 /**
- * main - Entry point
+ * print_alphabet - Prints all the alphabet in lowercase
  *
  * Return: Always 0 (Success)
  */
-int main(void)
+void print_alphabet(void)
 {
-	int n;
-	int lastDigit;
+	char l = 'a';
 
-	srand(time(0));
-	n = rand() - RAND_MAX / 2;
-	lastDigit = n % 10;
-
-	if (lastDigit > 5)
+	while (l <= 'z')
 	{
-		printf("Last digit of %d is %d and is greater than 5\n", n, lastDigit);
+		_putchar(l);
+		l++;
 	}
-	else if (lastDigit == 0)
-	{
-		printf("Last digit of %d is %d and is 0\n",
-		 n, lastDigit);
-	}
-	else
-	{
-		printf("Last digit of %d is %d and is less than 6 and not 0\n", n, lastDigit);
-	}
-	return (0);
+	_putchar('\n');
 }
-

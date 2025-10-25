@@ -7,7 +7,5 @@ void print_alphabet_x10(void);
 int _islower(int
 
 int main(void)
-{
-#endif /* MAIN_H */
- c);
-int _isalpha(int c););
+include "main.h" c);;
+int _isalpha(int c);

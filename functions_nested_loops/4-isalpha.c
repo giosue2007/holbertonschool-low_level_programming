@@ -17,4 +17,3 @@ int _isalpha(int c)
  *
  * Return: Always 0.
  */
-int main(void)

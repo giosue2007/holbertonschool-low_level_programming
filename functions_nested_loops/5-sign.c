@@ -13,8 +13,3 @@ int _abs(int n)
 	else
 		return (n);
 }
-/**
- * main - check the code
- *
- * Return: Always 0.
- */

@@ -9,7 +9,6 @@ int _isalpha(int c);
 int print_sign(int n);
 int _abs(int);
 int print_last_digit(int n);
-n = add(89, 9);
-    printf("%d\n", n);
-    return (0);
+void times_table(void);
+
 #endif

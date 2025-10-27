@@ -1,12 +1,12 @@
 #include "main.h"
 #include <stdio.h>
 /**
- * _print_number - check the code.
+ * print_numbers - check the code.
  *
  * @c: character to be checked
  * Return: Always 0.
  */
-int _print_number(int c)
+void print_numbers(void)
 {
 	if (c >= '0' && c <= '9')
 	{
@@ -14,6 +14,12 @@ int _print_number(int c)
 	}
 	else
 	{
-		return (0);
+		_putchar
 	}
+}
+
+int main(void)
+{
+    print_numbers();
+    return (0);
 }

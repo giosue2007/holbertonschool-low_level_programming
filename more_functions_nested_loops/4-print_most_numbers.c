@@ -19,9 +19,3 @@ void print_most_numbers(void)
 	}
 	_putchar('\n');
 }
-
-int main()
-{
-	print_most_numbers();
-	return 0;
-}

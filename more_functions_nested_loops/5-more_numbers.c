@@ -6,7 +6,7 @@
 *
 * Return: Always 0.
 */
-void more_numbers(void)
+void more_numbers(void n)
 {
 	int c;
 	int i = 0;

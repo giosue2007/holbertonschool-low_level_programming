@@ -1,8 +1,8 @@
 #include "main.h"
 #include <stdio.h>
 /**
-* more_numbers - numbers, from 0 to 14
-*
+* print_line - draws a straight line in the terminal
+* @n: the length
 *
 * Return: Always 0.
 */

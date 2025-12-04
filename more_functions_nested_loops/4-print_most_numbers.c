@@ -10,7 +10,7 @@
 
 int inverser_nombres(nombreA, nombreB)
 {
-	int temporaire =0; //B
+	int temporaire =0; //
 
 	temporaire =
 	nombreB = nombreA

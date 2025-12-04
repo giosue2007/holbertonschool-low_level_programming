@@ -1,34 +1,21 @@
 #include <stdio.h>
 
 /*
-    pointeur : variables contenant l'adresse d'une autre variable
+[Déclaration tableau] 
+   <type> <nom_tableau>[X]; //Déclare avec valeurs aléatoires
 
-     [VARIABLES]
-    maVariable : valeur de la variable
-	&maVariable: adresse de la variables
+ [Initialisation]
+      tableau[5] = {valeur1, valeur2, valeur3, valeur4, valeur5};
+	  tableau[5] = {0}; //Toutes les cases valent 0
+	  tableau [5] = {4}; // Premiere case a 4, Le reste 0
+
+	  [Accès au tableau]
+	     tableau[X] : élément d'undice X (X+1ème élément du tableau)
 */
 
-int inverser_nombres(nombreA, nombreB)
-{
-	int temporaire =0; //
-
-	temporaire =
-	nombreB = nombreA
-	nombreA = temporaire;
-
-	return nombreA;
-}
 int main(void)
 {
-	
-	int nombreA = 15;
-	int nombreB = 28;
+	int tableau[5] = {4};
+	return 0;
 
-printf("Adresse de NombreB = %p\n" , &nombreB);
-
-//printf(AVANT : a = %d\n", nombreA, nombreB);
-//nombreA = inverser_nombres(nombreA,nombreB);
-//printf("APRES :A = %d\n", nombreA, nombreB);
-
-return 0;
-	 
+}

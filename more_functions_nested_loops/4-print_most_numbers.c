@@ -11,17 +11,28 @@
 
 	  [Accès au tableau]
 	     tableau[X] : élément d'undice X (X+1ème élément du tableau)
-*/
+
+         tableau    : adresse du tableau
+		 *tableau   : premier élément du tableau
+		 *(tableau + X): élément d'indice X
+ */
+
+#define TAILLE_TAB 5
 
 int main(void)
 {
-	int taille_tableau =10;
-	int tableau[taille_tableau] = {0};
+	int tableau[TAILLE_TAB] = {16,84 , -2 188, 3};
 	int i;
-	
-for(i= 0 ; i< 5;; i++)
-    printf("[%d] ", tableau[i]);
 
-return 0;
+for (i = 0 ; i < TAILLE_TAB;) i++
+     printf("[%d]", tableau[i]);
+
+	 printf("\n\n");
+	 tableau[2] = -5;
+
+	 for(i = 0 ; i < TAILLE_TAB ; i++)
+	     printf("[%d] ", tableau[i]);
+
+	retun 0;
 
 }

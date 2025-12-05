@@ -16,6 +16,10 @@
 int main(void)
 {
 	int tableau[5] = {4};
-	return 0;
+	int i;
+	
+for(i= 0 ; i< )
+
+return 0;
 
 }

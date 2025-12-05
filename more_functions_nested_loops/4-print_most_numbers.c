@@ -15,10 +15,12 @@
 
 int main(void)
 {
-	int tableau[5] = {4};
+	int taille_tableau =10;
+	int tableau[taille_tableau] = {0};
 	int i;
 	
-for(i= 0 ; i< )
+for(i= 0 ; i< 5;; i++)
+    printf("[%d] ", tableau[i]);
 
 return 0;
 

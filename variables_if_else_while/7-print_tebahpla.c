@@ -7,15 +7,16 @@
  * en n'utilisant que deux fois la fonction putchar.
  *
  * Return: Toujours 0 (Succès)
- */int main(void)
+ */
+int main(void)
 {
-         char lettre;
+    char lettre;
 
-		 for (lettre = 'z'; lettre >= 'a'; lettre--)
-		 {
-			     putchar(lettre);
-		 }
-		 putchar('/');
+	for (lettre = 'z'; lettre >= 'a'; lettre--)
+	{
+		putchar(lettre);
+	}
+	putchar('\n');
 
-		 return (0);
+	return (0);
 }

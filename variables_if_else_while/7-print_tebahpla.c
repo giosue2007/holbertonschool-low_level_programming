@@ -1,15 +1,13 @@
 #include <stdio.h>
 
-/** 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
-*/
-int main(void)
+/**
+ * main - Point d'entrée du programme
+ *
+ * Description: Affiche l'alphabet en minuscules à l'envers
+ * en n'utilisant que deux fois la fonction putchar.
+ *
+ * Return: Toujours 0 (Succès)
+ */int main(void)
 {
          char lettre;
 

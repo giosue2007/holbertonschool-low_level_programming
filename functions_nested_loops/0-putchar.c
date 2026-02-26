@@ -1,12 +1,9 @@
-#include <unistd.h>
-#include "main.h" /* Ou déclare 'int _putchar(char c);' ici si tu n'as pas de .h */
+#include "main.h"
 
 /**
- * main - Point d'entrée du programme
+ * main - Prints _putchar followed by a new line
  *
- * Description: Imprime _putchar suivi d'un saut de ligne
- *
- * Return: Toujours 0 (Succès)
+ * Return: Always 0 (Success)
  */
 int main(void)
 {
@@ -19,6 +16,5 @@ int main(void)
 	_putchar('a');
 	_putchar('r');
 	_putchar('\n');
-
 	return (0);
 }

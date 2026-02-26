@@ -1,4 +1,4 @@
-##include "main.h"
+#include "main.h"
 
 /**
  * print_alphabet_x10 - imprime 10 fois l'alphabet en minuscules

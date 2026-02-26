@@ -2,11 +2,12 @@
 #include "main.h"
 
 /**
- * print_to_98 - Affiche tous les nombres de n à 98
- * @n: Le nombre de départ
+ * print_to_98 - prints all natural numbers from n to 98
+ * @n: starting point
  */
 void print_to_98(int n)
 {
+	/* Cas où on doit monter */
 	if (n <= 98)
 	{
 		for (; n < 98; n++)
@@ -14,6 +15,7 @@ void print_to_98(int n)
 			printf("%d, ", n);
 		}
 	}
+	/* Cas où on doit descendre */
 	else
 	{
 		for (; n > 98; n--)
@@ -21,5 +23,6 @@ void print_to_98(int n)
 			printf("%d, ", n);
 		}
 	}
+	/* Le dernier nombre est toujours 98, sans virgule après */
 	printf("98\n");
 }

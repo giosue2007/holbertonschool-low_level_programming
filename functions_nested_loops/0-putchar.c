@@ -1,9 +1,10 @@
-#include "main.h"
+#include <unistd.h>
+#include "main.h" /* Ou déclare 'int _putchar(char c);' ici si tu n'as pas de .h */
 
 /**
- * main - Point d'entrée
+ * main - Point d'entrée du programme
  *
- * Description: Affiche le mot _putchar suivi d'un retour à la ligne.
+ * Description: Imprime _putchar suivi d'un saut de ligne
  *
  * Return: Toujours 0 (Succès)
  */

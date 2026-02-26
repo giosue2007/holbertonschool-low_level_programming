@@ -2,6 +2,6 @@
 #define MAIN_H
 
 int _putchar(char c);
-int _isalpha(int c); /* <--- IL FAUT CETTE LIGNE ! */
+int _isalpha(int c);
 
 #endif

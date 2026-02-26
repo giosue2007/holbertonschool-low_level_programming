@@ -7,22 +7,21 @@
  */
 void print_to_98(int n)
 {
-	/* Cas où on doit monter */
 	if (n <= 98)
 	{
-		for (; n < 98; n++)
+		while (n < 98)
 		{
 			printf("%d, ", n);
+			n++;
 		}
 	}
-	/* Cas où on doit descendre */
 	else
 	{
-		for (; n > 98; n--)
+		while (n > 98)
 		{
 			printf("%d, ", n);
+			n--;
 		}
 	}
-	/* Le dernier nombre est toujours 98, sans virgule après */
 	printf("98\n");
 }

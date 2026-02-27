@@ -8,5 +8,6 @@ void more_numbers(void);
 void print_line(int n);
 void print_diagonal(int n);
 void print_square(int size); /* <--- Vérifie si elle est là avec le ; */
+void print_triangle(int size);
 
 #endif

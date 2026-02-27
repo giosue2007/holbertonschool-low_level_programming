@@ -1,15 +1,13 @@
 #include "main.h"
 
 /**
- * _insupper - Vérifie si un caractere est une majusqule.
- * @c: Le caractère à verifier (représenté par son code ASCII).
- *
- * Return: 1 si c'est une majuscule, 0 sinon,
+ * _isupper - checks for uppercase character
+ * @c: the character to be checked
+ * Return: 1 if c is uppercase, 0 otherwise
  */
-int_insupper(int c)
+int _isupper(int c)
 {
-	/*En ASCII, les majuscule vont de 'a' (65 ) à 'z' (90)*/
-	if (c >= 'A' && c <= 'z')
+	if (c >= 'A' && c <= 'Z')
 	{
 		return (1);
 	}

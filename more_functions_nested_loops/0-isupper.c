@@ -3,7 +3,7 @@
 /**
  * _insupper - Vérifie si un caractere est une majusqule.
  * @c: Le caractère à verifier (représenté par son code ASCII).
- * 
+ *
  * Return: 1 si c'est une majuscule, 0 sinon,
  */
 int_insupper(int c)

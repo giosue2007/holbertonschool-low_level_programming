@@ -2,6 +2,7 @@
 #define MAIN_H
 
 int _putchar(char c);
-int _isupper(int c); /* <-- Vérifie bien l'espace, l'orthographe et le ; */
+int _isupper(int c);
+int _isdigit(int c);  /* <-- IL MANQUE SÛREMENT CETTE LIGNE ICI */
 
 #endif

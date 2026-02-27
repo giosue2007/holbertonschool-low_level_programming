@@ -1,15 +1,14 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-/* Prototype de _putchar */
+/* Le prototype de la fonction putchar fournie par l'école */
 int _putchar(char c);
 
-/* Prototypes des exercices précédents */
+/* Les prototypes de tes fonctions (tes "cartes d'identité") */
 void print_numbers(void);
 void print_most_numbers(void);
 void more_numbers(void);
-
-/* Prototype de l'exercice actuel */
 void print_line(int n);
+void print_diagonal(int n); /* <--- C'EST CETTE LIGNE QU'IL TE MANQUE ! */
 
 #endif

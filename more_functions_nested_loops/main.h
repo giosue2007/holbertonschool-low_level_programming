@@ -3,6 +3,7 @@
 
 int _putchar(char c);
 int _isupper(int c);
-int _isdigit(int c);  /* <-- IL MANQUE SÛREMENT CETTE LIGNE ICI */
+int _isdigit(int c);
+int mul(int a, int b); /* <-- IL FAUT AJOUTER CETTE LIGNE ICI */
 
 #endif

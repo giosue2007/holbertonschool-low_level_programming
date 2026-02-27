@@ -9,5 +9,10 @@ void print_line(int n);
 void print_diagonal(int n);
 void print_square(int size);
 void print_triangle(int size); /* <-- LA LIGNE MANQUANTE EST ICI */
+void print_triangle(int size)
+{
+    /* ton code */
+}
+
 
 #endif

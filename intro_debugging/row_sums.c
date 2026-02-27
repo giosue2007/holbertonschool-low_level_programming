@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+/**
+ * row_sum - Calcule la somme des produits d'une ligne
+ * @row: Le numéro de la ligne
+ * @cols: Le nombre de colonnes
+ * Return: La somme de la ligne
+ */
 int row_sum(int row, int cols)
 {
     int c;
@@ -11,24 +17,29 @@ int row_sum(int row, int cols)
     return sum;
 }
 
+/**
+ * total_sum - Calcule la somme totale de toutes les lignes
+ * @rows: Le nombre total de lignes
+ * @cols: Le nombre total de colonnes
+ * Return: La somme totale
+ */
 int total_sum(int rows, int cols)
 {
     int r;
     int total = 0;
-    /* La variable 'current' est supprimée car elle causait une double accumulation */
 
     for (r = 1; r <= rows; r++)
     {
-        // On ajoute directement la somme de la ligne actuelle au total
+        /* Utilisation du style de commentaire C89 pour éviter l'erreur */
         total += row_sum(r, cols);
     }
 
     return total;
 }
 
-/* -- NE PAS modifier le code ci-dessous -- */
+/* -- DO NOT Modify the code below this line -- */
 int main(void)
 {
-    printf("%d\n", total_sum(3, 3)); // Résultat attendu : 36
+    printf("%d\n", total_sum(3, 3));
     return 0;
 }

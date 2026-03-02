@@ -1,13 +1,13 @@
 #include <stdio.h>
 
 /**
- * main - Calculatrice : Add, Subtract, Multiply
+ * main - Calculatrice complète avec gestion d'erreur division
  * Return: Toujours 0
  */
 int main(void)
 {
 	int choice;
-	int a, b;
+	float a, b; /* On utilise float pour accepter les décimaux */
 
 	printf("Simple Calculator\n");
 
@@ -21,44 +21,36 @@ int main(void)
 		printf("Choice: ");
 		scanf("%d", &choice);
 
-		if (choice == 1)
+		if (choice >= 1 && choice <= 4)
 		{
 			printf("A: ");
-			scanf("%d", &a);
+			scanf("%f", &a); /* %f pour lire un float */
 			printf("B: ");
-			scanf("%d", &b);
-			printf("Result: %d\n", a + b);
-		}
-		else if (choice == 2)
-		{
-			printf("A: ");
-			scanf("%d", &a);
-			printf("B: ");
-			scanf("%d", &b);
-			printf("Result: %d\n", a - b);
-		}
-		else if (choice == 3)
-		{
-			/* Bloc de la Multiplication */
-			printf("A: ");
-			scanf("%d", &a);
-			printf("B: ");
-			scanf("%d", &b);
-			printf("Result: %d\n", a * b);
+			scanf("%f", &b); /* %f pour lire un float */
+
+			if (choice == 1)
+				printf("Result: %g\n", a + b);
+			else if (choice == 2)
+				printf("Result: %g\n", a - b);
+			else if (choice == 3)
+				printf("Result: %g\n", a * b);
+			else if (choice == 4)
+			{
+				/* Test de sécurité pour la division */
+				if (b == 0)
+					printf("Error: division by zero\n");
+				else
+					printf("Result: %g\n", a / b);
+			}
 		}
 		else if (choice == 0)
 		{
 			printf("Bye!\n");
 		}
-		else if (choice == 4)
-		{
-			/* Option Division (pas encore faite) */
-		}
 		else
 		{
 			printf("Invalid choice\n");
 		}
-
 	} while (choice != 0);
 
 	return (0);

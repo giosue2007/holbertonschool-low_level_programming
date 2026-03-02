@@ -1,38 +1,40 @@
 #include <stdio.h>
 
 /**
- * main - Point d'entrée du programme
+ * main - Point d'entree de la calculatrice
  * Return: Toujours 0
  */
 int main(void)
 {
-    int choice;
+	int choice;
 
-    /* 1. Ligne de bienvenue */
-    printf("Simple Calculator\n");
+	printf("Simple Calculator\n");
 
-    do {
-        /* Affichage du menu */
-        printf("1) Add\n");
-        printf("2) Subtract\n");
-        printf("3) Multiply\n");
-        printf("4) Divide\n");
-        printf("0) Quit\n");
+	do {
+		printf("1) Add\n");
+		printf("2) Subtract\n");
+		printf("3) Multiply\n");
+		printf("4) Divide\n");
+		printf("0) Quit\n");
 
-        printf("Choice: ");
-        /* Lecture du choix */
-        if (scanf("%d", &choice) != 1)
-        {
-            /* Petite sécurité si l'utilisateur tape une lettre */
-            break;
-        }
+		printf("Choice: ");
+		scanf("%d", &choice);
 
-        /* 3. Gestion du choix "0" */
-        if (choice == 0)
-        {
-            printf("Bye!\n");
-        }
-    } while (choice != 0);
+		if (choice >= 1 && choice <= 4)
+		{
+			/* On ne fait rien pour l'instant, le menu va juste boucler */
+		}
+		else if (choice == 0)
+		{
+			printf("Bye!\n");
+		}
+		else
+		{
+			/* C'est ici qu'on gere les mauvais chiffres comme 9 */
+			printf("Invalid choice\n");
+		}
 
-    return (0);
+	} while (choice != 0);
+
+	return (0);
 }

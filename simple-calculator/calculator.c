@@ -1,12 +1,13 @@
 #include <stdio.h>
 
 /**
- * main - Point d'entree de la calculatrice
+ * main - Calculatrice avec option addition
  * Return: Toujours 0
  */
 int main(void)
 {
 	int choice;
+	int a, b; /* On declare deux variables pour les nombres */
 
 	printf("Simple Calculator\n");
 
@@ -20,9 +21,22 @@ int main(void)
 		printf("Choice: ");
 		scanf("%d", &choice);
 
-		if (choice >= 1 && choice <= 4)
+		if (choice == 1)
 		{
-			/* On ne fait rien pour l'instant, le menu va juste boucler */
+			/* Etape 1 : Demander A */
+			printf("A: ");
+			scanf("%d", &a);
+
+			/* Etape 2 : Demander B */
+			printf("B: ");
+			scanf("%d", &b);
+
+			/* Etape 3 : Afficher le resultat */
+			printf("Result: %d\n", a + b);
+		}
+		else if (choice >= 2 && choice <= 4)
+		{
+			/* Les autres options ne font rien pour l'instant */
 		}
 		else if (choice == 0)
 		{
@@ -30,7 +44,6 @@ int main(void)
 		}
 		else
 		{
-			/* C'est ici qu'on gere les mauvais chiffres comme 9 */
 			printf("Invalid choice\n");
 		}
 

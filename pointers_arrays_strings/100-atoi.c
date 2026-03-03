@@ -15,29 +15,27 @@ int _atoi(char *s)
 
 	while (s[i] != '\0')
 	{
-		/* 1. On gere les signes : chaque '-' inverse le signe actuel */
+		/* On gere les signes : chaque '-' inverse le signe */
 		if (s[i] == '-')
 		{
 			sign *= -1;
 		}
 
-		/* 2. Si on trouve un chiffre (ASCII entre 48 et 57) */
+		/* Si on trouve un chiffre (ASCII 48-57) */
 		if (s[i] >= '0' && s[i] <= '9')
 		{
 			found = 1;
-			/* On multiplie le resultat precedent par 10 pour decaler d'un rang */
-			/* Puis on ajoute la valeur numerique du caractere actuel */
+			/* Decalage des dizaines et ajout du chiffre */
 			res = (res * 10) + (s[i] - '0');
 		}
-		/* 3. Si on avait commence a trouver des chiffres et qu'on voit autre chose */
+		/* Si on a trouve des chiffres et qu'on voit autre chose */
 		else if (found == 1)
 		{
-			/* On s'arrete net ! C'est la regle d'atoi */
+			/* On s'arrete net ! */
 			break;
 		}
 		i++;
 	}
 
-	/* 4. On multiplie le resultat positif par le signe final (1 ou -1) */
 	return (res * sign);
 }

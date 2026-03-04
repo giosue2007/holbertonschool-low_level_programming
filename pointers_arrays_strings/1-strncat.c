@@ -15,15 +15,14 @@ char *_strncat(char *dest, char *src, int n)
 
 	/* ÉTAPE 1 : Trouver la fin de dest */
 	/* On avance jusqu'au '\0' pour savoir où commencer à coller */
+	/* ÉTAPE 1 : Trouver la fin de dest */
 	while (dest[i] != '\0')
 	{
 		i++;
 	}
 
-	/* ÉTAPE 2 : Copier src dans dest avec une DOUBLE sécurité */
-	/* On s'arrête SI :
-	   - On arrive au bout de src (src[j] == '\0')
-	   - OU SI on a déjà copié n caractères (j == n) */
+	/* ÉTAPE 2 : Copier src dans dest avec double sécurité */
+	/* On vérifie la fin de src ET la limite n */
 	while (src[j] != '\0' && j < n)
 	{
 		dest[i] = src[j];
@@ -37,4 +36,3 @@ char *_strncat(char *dest, char *src, int n)
 
 	return (dest);
 }
-

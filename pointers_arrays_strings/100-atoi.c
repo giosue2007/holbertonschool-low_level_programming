@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _atoi - convertit une chaine en entier
+ * _atoi - convertir une chaine en entier
  * @s: la chaine a convertir
  *
  * Return: l'entier converti, ou 0 si aucun chiffre n'est trouve

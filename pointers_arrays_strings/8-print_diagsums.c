@@ -1,26 +1,27 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
- * print_chessboard - Affiche un plateau d'échecs.
- * @a: Un pointeur vers un tableau de 8 caractères (le plateau).
- *
- * Description: Utilise deux boucles imbriquées pour parcourir
- * les 8 lignes et les 8 colonnes du tableau.
+ * print_diagsums - Affiche la somme des deux diagonales d'une matrice carrée.
+ * @a: Pointeur vers le premier élément de la matrice (vu comme un tableau 1D).
+ * @size: La taille d'un côté de la matrice (ex: 3 pour une matrice 3x3).
  */
-void print_chessboard(char (*a)[8])
+void print_diagsums(int *a, int size)
 {
-	int i, j;
+	int i;
+	int sum1 = 0;
+	int sum2 = 0;
 
-	/* i représente l'index de la ligne (de 0 à 7) */
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < size; i++)
 	{
-		/* j représente l'index de la colonne (de 0 à 7) */
-		for (j = 0; j < 8; j++)
-		{
-			/* On affiche le caractère situé à la ligne i, colonne j */
-			_putchar(a[i][j]);
-		}
-		/* Après avoir affiché les 8 colonnes, on change de ligne */
-		_putchar('\n');
+		/* Diagonale principale : index (ligne * size) + ligne */
+		/* Ce qui revient à i * (size + 1) */
+		sum1 += a[i * (size + 1)];
+
+		/* Diagonale secondaire : index (ligne * size) + (size - 1 - ligne) */
+		/* Ce qui revient à (i + 1) * (size - 1) */
+		sum2 += a[(i + 1) * (size - 1)];
 	}
+
+	printf("%d, %d\n", sum1, sum2);
 }

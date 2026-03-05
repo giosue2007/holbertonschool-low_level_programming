@@ -20,8 +20,8 @@ int is_separator(char c)
 }
 
 /**
- * cap_string - Capitalise tous les mots d'une chaîne.
- * @str: La chaîne de caractères à modifier.
+ * cap_string - Capitalise tous les mots d'une chaîne de caractères.
+ * @str: La chaîne à modifier.
  *
  * Return: Un pointeur vers la chaîne modifiée.
  */
@@ -29,17 +29,19 @@ char *cap_string(char *str)
 {
 	int i = 0;
 
-	/* Cas particulier : premier caractère de la chaîne */
+	/* On capitalise le premier caractère s'il s'agit d'une minuscule */
 	if (str[i] >= 'a' && str[i] <= 'z')
 		str[i] -= 32;
 
 	while (str[i] != '\0')
 	{
-		/* Si on trouve un séparateur, on regarde le caractère suivant */
+		/* Si le caractère actuel est un séparateur */
 		if (is_separator(str[i]))
 		{
+			/* On vérifie si le caractère suivant est une minuscule */
 			if (str[i + 1] >= 'a' && str[i + 1] <= 'z')
 			{
+				/* Transformation en majuscule via la table ASCII */
 				str[i + 1] -= 32;
 			}
 		}
@@ -48,3 +50,4 @@ char *cap_string(char *str)
 
 	return (str);
 }
+/* Ajoute bien une ligne vide ici avant d'enregistrer */

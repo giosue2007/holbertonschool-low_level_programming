@@ -6,8 +6,8 @@
  * @grid: L'adresse de la grille (tableau de pointeurs).
  * @height: La hauteur de la grille (nombre de lignes).
  *
- *Description: Libère chaque ligne individuellement, 
- *puis libère le tableau de pointeurs principal.
+ * Description: Libère chaque ligne individuellement, 
+ * puis libère le tableau de pointeurs principal.
  */
 void free_grid(int **grid, int height)
 {

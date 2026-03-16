@@ -1,15 +1,17 @@
-#include "main.h"
-#include <stdlib.h>
+#ifndef DOG_H
+#define DOG_H
 
 /**
- * struct dog - Une structure pour décrire un chien
- * @name: Le nom du chien (chaîne de caractères)
- * @age: L'âge du chien (nombre à virgule)
- * @owner: Le nom du propriétaire (chaîne de caractères)
+ * struct dog - Plan pour créer un chien
+ * @name: Nom
+ * @age: Âge
+ * @owner: Maître
  */
-struc dog
+struct dog
 {
-	  char *name;
-	  float age;
-	  char *owner;
-}
+	char *name;
+	float age;
+	char *owner;
+};
+
+#endif

@@ -2,10 +2,10 @@
 #define DOG_H
 
 /**
- * struct dog - Plan pour un chien
- * @name: Nom
- * @age: Âge
- * @owner: Maître
+ * struct dog - Plan pour créer un chien
+ * @name: Nom du chien
+ * @age: Âge du chien
+ * @owner: Maître du chien
  */
 struct dog
 {
@@ -14,7 +14,7 @@ struct dog
 	char *owner;
 };
 
-/* Le prototype (la signature de ta fonction) */
+/* Le prototype doit être APRES la struct */
 void init_dog(struct dog *d, char *name, float age, char *owner);
 
 #endif

@@ -1,20 +1,41 @@
-#ifndef DOG_H
-#define DOG_H
+
+#include "dog.h"
+#include <stdlib.h>
+#include <string.h>
 
 /**
- * struct dog - structure représentant un chien
- * @name: nom du chien
- * @age: âge du chien
- * @owner: nom du propriétaire
+ * new_dog - creates a new dog
+ * @name: name of the dog
+ * @age: age of the dog
+ * @owner: owner of the dog
+ * Return: pointer to new dog, or NULL if fails
  */
-typedef struct dog
+dog_t *new_dog(char *name, float age, char *owner)
 {
-	char *name;
-	float age;
-	char *owner;
-} dog_t;
+	dog_t *dog;
 
-void print_dog(struct dog *d);
-dog_t *new_dog(char *name, float age, char *owner);
+	dog = malloc(sizeof(dog_t));
+	if (dog == NULL)
+		return (NULL);
 
-#endif /* DOG_H */
+	dog->name = malloc(strlen(name) + 1);
+	if (dog->name == NULL)
+	{
+		free(dog);
+		return (NULL);
+	}
+	strcpy(dog->name, name);
+
+	dog->owner = malloc(strlen(owner) + 1);
+	if (dog->owner == NULL)
+	{
+		free(dog->name);
+		free(dog);
+		return (NULL);
+	}
+	strcpy(dog->owner, owner);
+
+	dog->age = age;
+
+	return (dog);
+}

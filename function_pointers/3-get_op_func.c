@@ -1,25 +1,61 @@
 #include "3-calc.h"
-#include <string.h>
 
-int (*get_op_func(char *s))(int, int)
+/**
+ * op_add - adds two integers
+ * @a: first integer
+ * @b: second integer
+ *
+ * Return: result of a + b
+ */
+int op_add(int a, int b)
 {
-	op_t ops[] = {
-		{"+", op_add},
-		{"-", op_sub},
-		{"*", op_mul},
-		{"/", op_div},
-		{"%", op_mod},
-		{NULL, NULL}
-	};
-	int i = 0;
+	return (a + b);
+}
 
-	/* On parcourt le tableau jusqu'à trouver l'opérateur ou NULL */
-	while (ops[i].op != NULL)
-	{
-		/* LE SEUL IF AUTORISÉ : on compare le signe */
-		if (strcmp(ops[i].op, s) == 0)
-			return (ops[i].f);
-		i++;
-	}
-	return (NULL);
+/**
+ * op_sub - subtracts two integers
+ * @a: first integer
+ * @b: second integer
+ *
+ * Return: result of a - b
+ */
+int op_sub(int a, int b)
+{
+	return (a - b);
+}
+
+/**
+ * op_mul - multiplies two integers
+ * @a: first integer
+ * @b: second integer
+ *
+ * Return: result of a * b
+ */
+int op_mul(int a, int b)
+{
+	return (a * b);
+}
+
+/**
+ * op_div - divides two integers
+ * @a: first integer
+ * @b: second integer
+ *
+ * Return: result of a / b
+ */
+int op_div(int a, int b)
+{
+	return (a / b);
+}
+
+/**
+ * op_mod - computes remainder of division
+ * @a: first integer
+ * @b: second integer
+ *
+ * Return: remainder of a % b
+ */
+int op_mod(int a, int b)
+{
+	return (a % b);
 }

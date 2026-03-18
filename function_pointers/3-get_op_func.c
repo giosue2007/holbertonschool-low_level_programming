@@ -1,61 +1,40 @@
 #include "3-calc.h"
 
 /**
- * op_add - adds two integers
- * @a: first integer
- * @b: second integer
- *
- * Return: result of a + b
+ * main - Entry point
+ * @argc: The number of arguments
+ * @argv: An array of pointers to the arguments
+ * Return: Always 0 (Success)
  */
-int op_add(int a, int b)
-{
-	return (a + b);
-}
 
-/**
- * op_sub - subtracts two integers
- * @a: first integer
- * @b: second integer
- *
- * Return: result of a - b
- */
-int op_sub(int a, int b)
+int main(int argc, char *argv[])
 {
-	return (a - b);
-}
+	int a, b;
+	int (*op_func)(int, int);
 
-/**
- * op_mul - multiplies two integers
- * @a: first integer
- * @b: second integer
- *
- * Return: result of a * b
- */
-int op_mul(int a, int b)
-{
-	return (a * b);
-}
+	if (argc != 4)
+	{
+		printf("Error\n");
+		exit(98);
+	}
 
-/**
- * op_div - divides two integers
- * @a: first integer
- * @b: second integer
- *
- * Return: result of a / b
- */
-int op_div(int a, int b)
-{
-	return (a / b);
-}
+	op_func = get_op_func(argv[2]);
+	if (op_func == NULL)
+	{
+		printf("Error\n");
+		exit(99);
+	}
 
-/**
- * op_mod - computes remainder of division
- * @a: first integer
- * @b: second integer
- *
- * Return: remainder of a % b
- */
-int op_mod(int a, int b)
-{
-	return (a % b);
+	a = atoi(argv[1]);
+	b = atoi(argv[3]);
+
+	if ((argv[2][0] == '/' || argv[2][0] == '%') && b == 0)
+	{
+		printf("Error\n");
+		exit(100);
+	}
+
+	printf("%d\n", op_func(a, b));
+
+	return (0);
 }

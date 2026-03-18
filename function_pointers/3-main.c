@@ -1,16 +1,18 @@
 #include "3-calc.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
- * main - Entry point
- * @argc: The number of arguments
- * @argv: An array of pointers to the arguments
- * Return: Always 0 (Success)
+ * main - Performe des opérations simples
+ * @argc: Nombre d'arguments
+ * @argv: Tableau d'arguments
+ *
+ * Return: 0 (Succès)
  */
-
 int main(int argc, char *argv[])
 {
 	int a, b;
-	int (*op_func)(int, int);
+	int (*f)(int, int);
 
 	if (argc != 4)
 	{
@@ -18,8 +20,11 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
-	op_func = get_op_func(argv[2]);
-	if (op_func == NULL)
+	/* ON RÉCUPÈRE LA FONCTION D'ABORD */
+	f = get_op_func(argv[2]);
+
+	/* TEST OPÉRATEUR (CHECK 12) - DOIT ÊTRE ICI */
+	if (f == NULL || argv[2][1] != '\0')
 	{
 		printf("Error\n");
 		exit(99);
@@ -28,13 +33,13 @@ int main(int argc, char *argv[])
 	a = atoi(argv[1]);
 	b = atoi(argv[3]);
 
-	if ((argv[2][0] == '/' || argv[2][0] == '%') && b == 0)
+	/* TEST DIVISION PAR ZÉRO - DOIT ÊTRE APRÈS */
+	if ((*argv[2] == '/' || *argv[2] == '%') && b == 0)
 	{
 		printf("Error\n");
 		exit(100);
 	}
 
-	printf("%d\n", op_func(a, b));
-
+	printf("%d\n", f(a, b));
 	return (0);
 }

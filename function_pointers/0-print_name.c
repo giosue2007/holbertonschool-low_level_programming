@@ -1,10 +1,10 @@
 #include "function_pointers.h"
-#include <stdlib.h>
+#include <stdio.h>
 
 /**
- * print_name - Affiche un nom via un pointeur de fonction.
- * @name: Le nom à afficher.
- * @f: La fonction d'affichage à utiliser.
+ * print_name - prints a name
+ * @name: name to print
+ * @f: function pointer
  */
 void print_name(char *name, void (*f)(char *))
 {

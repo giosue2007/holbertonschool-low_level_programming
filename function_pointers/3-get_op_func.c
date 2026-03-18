@@ -21,7 +21,8 @@ int (*get_op_func(char *s))(int, int)
 
 	while (ops[i].op != NULL)
 	{
-		if (strcmp(ops[i].op, s) == 0)
+		/* On compare le premier caractère ET on vérifie que s n'a qu'un seul carac */
+		if (s[0] == ops[i].op[0] && s[1] == '\0')
 			return (ops[i].f);
 		i++;
 	}

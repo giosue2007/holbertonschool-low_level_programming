@@ -1,16 +1,9 @@
 #ifndef VARIADIC_FUNCTIONS_H
 #define VARIADIC_FUNCTIONS_H
 
-#include <stdarg.h>
-
-/**
- * sum_them_all - Prototype de la fonction de somme
- * @n: Nombre d'arguments
- * @...: Arguments variables
- * * Return: La somme des arguments
- */
 int sum_them_all(const unsigned int n, ...);
+void print_numbers(const char *separator, const unsigned int n, ...);
+void print_strings(const char *separator, const unsigned int n, ...);
+void print_all(const char * const format, ...);
 
-/* Tu ajouteras les prochains prototypes ici (ex: print_numbers, etc.) */
-
-#endif /* VARIADIC_FUNCTIONS_H */
+#endif

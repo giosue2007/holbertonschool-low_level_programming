@@ -2,10 +2,10 @@
 #include "lists.h"
 
 /**
- * print_list - affiche tous les éléments d'une liste list_t
- * @h: pointeur vers la tête de la liste
+ * print_list - affiche tous les elements d'une liste list_t
+ * @h: pointeur vers la tete de la liste
  *
- * Return: le nombre de nœuds
+ * Return: le nombre de noeuds
  */
 size_t print_list(const list_t *h)
 {

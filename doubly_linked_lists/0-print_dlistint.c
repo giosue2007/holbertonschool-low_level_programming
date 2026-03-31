@@ -9,21 +9,21 @@
  */
 size_t print_dlistint(const dlistint_t *h)
 {
-    size_t nodes = 0;
+	size_t nodes = 0;
 
-    /* On parcourt la liste tant que le pointeur n'est pas vide (NULL) */
-    while (h != NULL)
-    {
-        /* On affiche la valeur 'n' du nœud actuel */
-        printf("%d\n", h->n);
+	/* On parcourt la liste tant que le pointeur n'est pas vide (NULL) */
+	while (h != NULL)
+	{
+		/* On affiche la valeur 'n' du nœud actuel */
+		printf("%d\n", h->n);
 
-        /* On passe au nœud suivant via le pointeur 'next' */
-        h = h->next;
+		/* On passe au nœud suivant via le pointeur 'next' */
+		h = h->next;
 
-        /* On incrémente notre compteur */
-        nodes++;
-    }
+		/* On incrémente notre compteur */
+		nodes++;
+	}
 
-    /* On retourne le nombre total d'éléments trouvés */
-    return (nodes);
+	/* On retourne le nombre total d'éléments trouvés */
+	return (nodes);
 }

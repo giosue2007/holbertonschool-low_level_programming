@@ -2,9 +2,14 @@
 #define HASH_TABLES_H
 
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 /**
- * struct hash_node_s - Nœud d'une table de hachage
+ * struct hash_node_s - Node of a hash table
+ * @key: The key, string
+ * @value: The value corresponding to a key
+ * @next: A pointer to the next node of the List
  */
 typedef struct hash_node_s
 {
@@ -14,7 +19,9 @@ typedef struct hash_node_s
 } hash_node_t;
 
 /**
- * struct hash_table_s - Structure de la table de hachage
+ * struct hash_table_s - Hash table data structure
+ * @size: The size of the array
+ * @array: An array of size @size
  */
 typedef struct hash_table_s
 {
@@ -24,4 +31,4 @@ typedef struct hash_table_s
 
 hash_table_t *hash_table_create(unsigned long int size);
 
-#endif
+#endif /* HASH_TABLES_H */

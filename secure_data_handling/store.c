@@ -4,91 +4,56 @@
 #include "session.h"
 
 #define MAX_SESSIONS 100
-static Session *storage[MAX_SESSIONS] = {NULL};
+/* On utilise session_t car Session n'existe pas dans leur session.h */
+static session_t storage[MAX_SESSIONS] = {NULL};
 
-/**
- * store_add - Ajoute ou met à jour une session (Harden Store)
- */
-int store_add(int id, const char *data)
+/* Note : Il faut adapter store_add aux arguments de leur store.h */
+/* Si leur store.h dit : int store_add(store_t st, session_t s) */
+/* Tu dois copier EXACTEMENT le prototype de store.h ligne 16 */
+
+int store_add(store_t st, session_t s)
 {
-	int i;
+    int i;
+    (void)st; /* Si st n'est pas utilisé dans ton implémentation statique */
 
-	if (id < 0)
-		return (-1);
-
-	/* 1. Recherche de doublon pour mise à jour */
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] && storage[i]->id == id)
-		{
-			session_update_data(storage[i], data);
-			return (0);
-		}
-	}
-
-	/* 2. Insertion dans un slot vide */
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] == NULL)
-		{
-			storage[i] = session_create(id, data);
-			return (storage[i] ? 0 : -1);
-		}
-	}
-
-	return (-1); /* Store saturé */
+    for (i = 0; i < MAX_SESSIONS; i++)
+    {
+        if (storage[i] == NULL)
+        {
+            storage[i] = s;
+            return (0);
+        }
+    }
+    return (-1);
 }
 
-/**
- * store_get - Récupère une session par son ID
- */
-Session *store_get(int id)
+/* Idem pour store_get, adapte selon la ligne 17 de leur store.h */
+session_t store_get(store_t st, const char *id)
 {
-	int i;
+    int i;
+    (void)st;
 
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] && storage[i]->id == id)
-			return (storage[i]);
-	}
-	return (NULL);
+    for (i = 0; i < MAX_SESSIONS; i++)
+    {
+        /* Ici il faut comparer les ID selon la structure session_t */
+        /* Attention : l'accès dépend de la définition de struct session_s */
+        if (storage[i] != NULL && strcmp(storage[i]->id, id) == 0)
+        {
+            return (storage[i]);
+        }
+    }
+    return (NULL);
 }
 
-/**
- * store_delete - Supprime une session (Safe Deletion)
- */
-int store_delete(int id, Session **out)
-{
-	int i;
-
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] && storage[i]->id == id)
-		{
-			if (out)
-				*out = storage[i];
-			else
-				session_destroy(storage[i]);
-			storage[i] = NULL;
-			return (0);
-		}
-	}
-	return (-1);
-}
-
-/**
- * store_cleanup - Nettoyage final (Full Lifecycle Hardening)
- */
 void store_cleanup(void)
 {
-	int i;
-
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] != NULL)
-		{
-			session_destroy(storage[i]);
-			storage[i] = NULL;
-		}
-	}
+    int i;
+    for (i = 0; i < MAX_SESSIONS; i++)
+    {
+        if (storage[i] != NULL)
+        {
+            session_destroy(&(storage[i])); /* Adapté à leur prototype */
+            storage[i] = NULL;
+        }
+    }
 }

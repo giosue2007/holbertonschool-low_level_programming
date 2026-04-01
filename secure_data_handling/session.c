@@ -2,63 +2,35 @@
 #include <string.h>
 #include "session.h"
 
-/**
- * session_create - Crée une nouvelle session de manière sécurisée
- */
-Session *session_create(int id, const char *data)
+/* On utilise les noms du correcteur : session_t */
+session_t session_create(const char *id, unsigned int uid, const unsigned char *data, size_t data_len)
 {
-	Session *new_s = malloc(sizeof(Session));
-
-	if (!new_s)
+	session_t s = malloc(sizeof(struct session_s));
+	if (!s)
 		return (NULL);
 
-	new_s->id = id;
-	new_s->data = data ? strdup(data) : NULL;
-
-	if (data && !new_s->data)
+	/* Adaptation aux champs du correcteur (vu dans l'erreur) */
+	s->id = id ? strdup(id) : NULL;
+	s->uid = uid;
+	if (data && data_len > 0)
 	{
-		free(new_s);
-		return (NULL);
+		s->data = malloc(data_len);
+		if (s->data)
+			memcpy(s->data, data, data_len);
 	}
-	return (new_s);
+	else
+		s->data = NULL;
+
+	return (s);
 }
 
-/**
- * session_update_data - Met à jour les données (Safe Update)
- */
-void session_update_data(Session *session, const char *new_data)
+void session_destroy(session_t *s)
 {
-	char *temp;
-
-	if (!session)
-		return;
-
-	if (!new_data)
+	if (s && *s)
 	{
-		if (session->data)
-			free(session->data);
-		session->data = NULL;
-		return;
-	}
-
-	temp = strdup(new_data);
-	if (temp)
-	{
-		if (session->data)
-			free(session->data);
-		session->data = temp;
-	}
-}
-
-/**
- * session_destroy - Libère proprement la session
- */
-void session_destroy(Session *session)
-{
-	if (session)
-	{
-		if (session->data)
-			free(session->data);
-		free(session);
+		if ((*s)->id) free((*s)->id);
+		if ((*s)->data) free((*s)->data);
+		free(*s);
+		*s = NULL;
 	}
 }

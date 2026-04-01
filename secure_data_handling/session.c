@@ -2,7 +2,9 @@
 #include <string.h>
 #include "session.h"
 
-/* Crée une session proprement */
+/**
+ * session_create - Crée une nouvelle session de manière sécurisée
+ */
 Session *session_create(int id, const char *data)
 {
 	Session *new_s = malloc(sizeof(Session));
@@ -21,7 +23,9 @@ Session *session_create(int id, const char *data)
 	return (new_s);
 }
 
-/* Met à jour les données sans fuite (Task 2) */
+/**
+ * session_update_data - Met à jour les données (Safe Update)
+ */
 void session_update_data(Session *session, const char *new_data)
 {
 	char *temp;
@@ -29,7 +33,7 @@ void session_update_data(Session *session, const char *new_data)
 	if (!session)
 		return;
 
-	if (!new_data || strlen(new_data) == 0)
+	if (!new_data)
 	{
 		if (session->data)
 			free(session->data);
@@ -46,7 +50,9 @@ void session_update_data(Session *session, const char *new_data)
 	}
 }
 
-/* Libère la mémoire proprement */
+/**
+ * session_destroy - Libère proprement la session
+ */
 void session_destroy(Session *session)
 {
 	if (session)

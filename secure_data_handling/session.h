@@ -1,10 +1,14 @@
 #ifndef SESSION_H
 #define SESSION_H
 
-typedef struct Session {
+/* Définition de la structure */
+struct Session {
     int id;
     char *data;
-} Session;
+};
+
+/* Le typedef pour pouvoir écrire 'Session' au lieu de 'struct Session' */
+typedef struct Session Session;
 
 /* Prototypes */
 Session *session_create(int id, const char *data);

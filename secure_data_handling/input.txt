@@ -1,5 +1,4 @@
 add 1 un
 add 2 deux
 delete 1
-add 3 trois
 exit

@@ -1,22 +1,20 @@
-#include <stdlib.h>
-#include <string.h>
-#include "session.h"
+void session_update_data(Session *session, const char *new_data) {
+    char *temp;
 
-Session *session_create(int id, const char *data) {
-    Session *new_s = malloc(sizeof(Session));
-    if (!new_s) return (NULL);
+    if (!session) return;
 
-    new_s->id = id;
-    /* Utilisation de strdup pour la sécurité, avec vérification NULL */
-    new_s->data = data ? strdup(data) : NULL;
-    
-    return (new_s);
-}
-
-void session_destroy(Session *session) {
-    if (session) {
-        if (session->data)
-            free(session->data);
-        free(session);
+    /* Si on veut vider la donnée (Clear) */
+    if (!new_data || strlen(new_data) == 0) {
+        free(session->data);
+        session->data = NULL;
+        return;
     }
+
+    /* Mise à jour sécurisée : on alloue AVANT de libérer l'ancien */
+    temp = strdup(new_data);
+    if (temp) {
+        free(session->data); /* On libère l'ancien seulement si le nouveau est prêt */
+        session->data = temp;
+    }
+    /* Si temp est NULL, on a échoué mais session->data est toujours là (pas de perte) */
 }

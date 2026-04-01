@@ -1,36 +1,36 @@
 #include "hash_tables.h"
 
 /**
- * hash_table_get - récupère la valeur associée à une clé
- * @ht: la table de hachage dans laquelle chercher
- * @key: la clé que l'on recherche
+ * hash_table_get - récupère une valeur associée à une clé
+ * @ht: la table de hachage
+ * @key: la clé recherchée
  *
- * Return: la valeur associée, ou NULL si la clé n'est pas trouvée
+ * Return: la valeur (chaîne), ou NULL si non trouvée
  */
 char *hash_table_get(const hash_table_t *ht, const char *key)
 {
 	unsigned long int index;
-	hash_node_t *temp;
+	hash_node_t *node;
 
-	/* 1. Vérifications de sécurité */
+	/* 1. Sécurité : on vérifie si la table ou la clé existe */
 	if (ht == NULL || key == NULL || *key == '\0')
 		return (NULL);
 
-	/* 2. Calcul de la position exacte dans le tableau */
+	/* 2. On trouve où la clé devrait être rangée */
 	index = key_index((const unsigned char *)key, ht->size);
+	if (index >= ht->size)
+		return (NULL);
 
-	/* 3. On pointe sur le premier élément de ce "tiroir" */
-	temp = ht->array[index];
-
-	/* 4. On parcourt la liste chaînée à cet index */
-	while (temp != NULL)
+	/* 3. On parcourt la liste chaînée à cet index */
+	node = ht->array[index];
+	while (node)
 	{
 		/* Si on trouve la clé exacte, on renvoie sa valeur */
-		if (strcmp(temp->key, key) == 0)
-			return (temp->value);
-		temp = temp->next;
+		if (strcmp(node->key, key) == 0)
+			return (node->value);
+		node = node->next;
 	}
 
-	/* Si on arrive ici, c'est que la clé n'existe pas */
+	/* Clé non trouvée */
 	return (NULL);
 }

@@ -4,7 +4,7 @@
 typedef struct {
     int id;
     char *data;
-} Session;
+} Session; // <--- Vérifie bien le point-virgule ici !
 
 Session *session_create(int id, const char *data);
 void session_destroy(Session *session);

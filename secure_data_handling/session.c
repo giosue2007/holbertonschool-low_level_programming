@@ -2,35 +2,65 @@
 #include <string.h>
 #include "session.h"
 
-/* session_t est déjà défini comme un pointeur vers struct session_s dans le .h */
-session_t session_create(const char *id, unsigned int uid, const unsigned char *data, size_t data_len)
+/**
+ * session_create - Crée une session (doit matcher session.h)
+ */
+Session *session_create(int id, const char *data)
 {
-	session_t s = malloc(sizeof(struct session_s));
-	if (!s)
-		return (NULL);
+    Session *new_s = malloc(sizeof(Session));
 
-	s->id = id ? strdup(id) : NULL;
-	s->uid = uid;
-	
-	if (data && data_len > 0)
-	{
-		s->data = malloc(data_len);
-		if (s->data)
-			memcpy(s->data, data, data_len);
-	}
-	else
-		s->data = NULL;
+    if (!new_s)
+        return (NULL);
 
-	return (s);
+    new_s->id = id;
+    new_s->data = data ? strdup(data) : NULL;
+
+    /* Sécurité si strdup échoue */
+    if (data && !new_s->data)
+    {
+        free(new_s);
+        return (NULL);
+    }
+
+    return (new_s);
 }
 
-void session_destroy(session_t *s)
+/**
+ * session_update_data - Met à jour les données d'une session
+ */
+void session_update_data(Session *session, const char *new_data)
 {
-	if (s && *s)
-	{
-		if ((*s)->id) free((*s)->id);
-		if ((*s)->data) free((*s)->data);
-		free(*s);
-		*s = NULL;
-	}
+    char *temp;
+
+    if (!session)
+        return;
+
+    if (!new_data)
+    {
+        if (session->data)
+            free(session->data);
+        session->data = NULL;
+        return;
+    }
+
+    temp = strdup(new_data);
+    if (temp)
+    {
+        if (session->data)
+            free(session->data);
+        session->data = temp;
+    }
+}
+
+/**
+ * session_destroy - Libère proprement la session
+ */
+void session_destroy(Session *session)
+{
+    if (session)
+    {
+        if (session->data)
+            free(session->data);
+        free(session);
+    }
 }

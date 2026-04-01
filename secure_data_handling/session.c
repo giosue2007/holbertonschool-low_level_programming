@@ -2,35 +2,63 @@
 #include <string.h>
 #include "session.h"
 
-/* On utilise les noms du correcteur : session_t */
-session_t session_create(const char *id, unsigned int uid, const unsigned char *data, size_t data_len)
+/**
+ * session_create - Crée une session selon le prototype de session.h
+ */
+Session *session_create(int id, const char *data)
 {
-	session_t s = malloc(sizeof(struct session_s));
-	if (!s)
+	Session *new_s = malloc(sizeof(Session));
+
+	if (!new_s)
 		return (NULL);
 
-	/* Adaptation aux champs du correcteur (vu dans l'erreur) */
-	s->id = id ? strdup(id) : NULL;
-	s->uid = uid;
-	if (data && data_len > 0)
-	{
-		s->data = malloc(data_len);
-		if (s->data)
-			memcpy(s->data, data, data_len);
-	}
-	else
-		s->data = NULL;
+	new_s->id = id;
+	new_s->data = data ? strdup(data) : NULL;
 
-	return (s);
+	if (data && !new_s->data)
+	{
+		free(new_s);
+		return (NULL);
+	}
+	return (new_s);
 }
 
-void session_destroy(session_t *s)
+/**
+ * session_update_data - Met à jour les données
+ */
+void session_update_data(Session *session, const char *new_data)
 {
-	if (s && *s)
+	char *temp;
+
+	if (!session)
+		return;
+
+	if (!new_data)
 	{
-		if ((*s)->id) free((*s)->id);
-		if ((*s)->data) free((*s)->data);
-		free(*s);
-		*s = NULL;
+		if (session->data)
+			free(session->data);
+		session->data = NULL;
+		return;
+	}
+
+	temp = strdup(new_data);
+	if (temp)
+	{
+		if (session->data)
+			free(session->data);
+		session->data = temp;
+	}
+}
+
+/**
+ * session_destroy - Libère la session selon le prototype de session.h
+ */
+void session_destroy(Session *session)
+{
+	if (session)
+	{
+		if (session->data)
+			free(session->data);
+		free(session);
 	}
 }

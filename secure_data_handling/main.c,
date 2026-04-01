@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <string.h>
+#include "store.h"
+
+int main(void) {
+    char cmd[10], buffer[100];
+    int id;
+
+    printf("SecureStore Terminal > \n");
+    while (1) {
+        printf("> ");
+        scanf("%s", cmd);
+
+        if (strcmp(cmd, "add") == 0) {
+            scanf("%d %s", &id, buffer);
+            store_add(id, buffer);
+        } else if (strcmp(cmd, "get") == 0) {
+            scanf("%d", &id);
+            Session *s = store_get(id);
+            if (s) printf("Data: %s\n", s->data);
+        } else if (strcmp(cmd, "exit") == 0) {
+            break;
+        }
+    }
+    return 0;
+}

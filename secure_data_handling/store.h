@@ -1,12 +1,8 @@
-#ifndef SESSION_H
-#define SESSION_H
+#ifndef STORE_H
+#define STORE_H
+#include "session.h"
 
-typedef struct {
-    int id;
-    char *data;
-} Session;
-
-Session *session_create(int id, const char *data);
-void session_destroy(Session *session);
+int store_add(int id, const char *data);
+Session *store_get(int id);
 
 #endif

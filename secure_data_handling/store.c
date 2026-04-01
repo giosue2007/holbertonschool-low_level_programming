@@ -4,79 +4,44 @@
 #include "session.h"
 
 #define MAX_SESSIONS 100
+/* On utilise le type pointeur session_t pour le tableau */
+static session_t storage[MAX_SESSIONS] = {NULL};
 
-/* On utilise 'Session *' car c'est ce que ton erreur suggère (Session * {aka struct Session *}) */
-static Session *storage[MAX_SESSIONS] = {NULL};
-
-/**
- * store_add - Ajoute une session au store
- * Note: J'ai remis les arguments classiques (id, data) car ton main.c 
- * semble les appeler ainsi.
- */
-int store_add(int id, const char *data)
+int store_add(store_t st, session_t s)
 {
 	int i;
+	(void)st; /* On ignore car on utilise notre storage statique */
 
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] && storage[i]->id == id)
-		{
-			session_update_data(storage[i], data);
-			return (0);
-		}
-	}
+	if (!s)
+		return (-1);
 
 	for (i = 0; i < MAX_SESSIONS; i++)
 	{
 		if (storage[i] == NULL)
 		{
-			storage[i] = session_create(id, data);
-			return (storage[i] ? 0 : -1);
-		}
-	}
-	return (-1);
-}
-
-/**
- * store_get - Récupère une session
- */
-Session *store_get(int id)
-{
-	int i;
-
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] && storage[i]->id == id)
-			return (storage[i]);
-	}
-	return (NULL);
-}
-
-/**
- * store_delete - Supprime une session
- */
-int store_delete(int id, Session **out)
-{
-	int i;
-
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] && storage[i]->id == id)
-		{
-			if (out)
-				*out = storage[i];
-			else
-				session_destroy(storage[i]);
-			storage[i] = NULL;
+			storage[i] = s;
 			return (0);
 		}
 	}
 	return (-1);
 }
 
-/**
- * store_cleanup - Libère tout le store
- */
+session_t store_get(store_t st, const char *id)
+{
+	int i;
+	(void)st;
+
+	if (!id)
+		return (NULL);
+
+	for (i = 0; i < MAX_SESSIONS; i++)
+	{
+		if (storage[i] && storage[i]->id && strcmp(storage[i]->id, id) == 0)
+			return (storage[i]);
+	}
+	return (NULL);
+}
+
 void store_cleanup(void)
 {
 	int i;
@@ -85,7 +50,8 @@ void store_cleanup(void)
 	{
 		if (storage[i] != NULL)
 		{
-			session_destroy(storage[i]);
+			/* On passe l'adresse du pointeur comme demandé par leur session_destroy */
+			session_destroy(&storage[i]);
 			storage[i] = NULL;
 		}
 	}

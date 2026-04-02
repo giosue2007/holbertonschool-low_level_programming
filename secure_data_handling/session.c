@@ -2,31 +2,56 @@
 #include <string.h>
 #include "session.h"
 
-/* Utilise les noms de champs exacts de leur session.h */
-session_t session_create(const char *id, unsigned int uid,
-                         const unsigned char *data, size_t data_len)
+/**
+ * session_create - Creates a session using the 'Session' type
+ */
+Session *session_create(int id, const char *data)
 {
-    session_t s = malloc(sizeof(struct session_s));
-    if (!s) return (NULL);
+	Session *s = malloc(sizeof(Session));
 
-    s->id = id ? strdup(id) : NULL;
-    s->uid = uid;
-    
-    if (data && data_len > 0) {
-        s->data = malloc(data_len);
-        if (s->data) memcpy(s->data, data, data_len);
-    } else {
-        s->data = NULL;
-    }
-    return (s);
+	if (!s)
+		return (NULL);
+
+	s->id = id;
+	s->data = data ? strdup(data) : NULL;
+
+	if (data && !s->data)
+	{
+		free(s);
+		return (NULL);
+	}
+
+	return (s);
 }
 
-void session_destroy(session_t *s)
+/**
+ * session_destroy - Destroys the session
+ */
+void session_destroy(Session *s)
 {
-    if (s && *s) {
-        if ((*s)->id) free((*s)->id);
-        if ((*s)->data) free((*s)->data);
-        free(*s);
-        *s = NULL;
-    }
+	if (s)
+	{
+		if (s->data)
+			free(s->data);
+		free(s);
+	}
+}
+
+/**
+ * session_update_data - Updates session data
+ */
+void session_update_data(Session *s, const char *new_data)
+{
+	char *temp;
+
+	if (!s)
+		return;
+
+	temp = new_data ? strdup(new_data) : NULL;
+	if (new_data && !temp)
+		return;
+
+	if (s->data)
+		free(s->data);
+	s->data = temp;
 }

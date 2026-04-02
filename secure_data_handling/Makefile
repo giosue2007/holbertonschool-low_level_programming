@@ -1,28 +1,15 @@
-# Nom de l'exécutable final
-NAME = secure_data
-
-# Compilateur et options (Flags de sécurité)
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
-
-# Liste des fichiers sources et objets
+CFLAGS = -std=gnu89 -Wall -Wextra -Werror -pedantic -g
 SRC = main.c store.c session.c
 OBJ = $(SRC:.c=.o)
+BIN = secure_store
 
-# Règle par défaut : compile tout
-all: $(NAME)
+all: $(BIN)
 
-# Création de l'exécutable
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+$(BIN): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(BIN)
 
-# Nettoyage des fichiers objets (.o)
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(BIN)
 
-# Nettoyage complet (objets + exécutable)
-fclean: clean
-	rm -f $(NAME)
-
-# Recommence tout à zéro
-re: fclean all
+re: clean all

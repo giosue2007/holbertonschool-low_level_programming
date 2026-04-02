@@ -1,27 +1,19 @@
-#ifndef STORE_H
-#define STORE_H
+#ifndef SESSION_H
+#define SESSION_H
 
-#include "session.h"
+#include <stddef.h>
 
-typedef struct node_s {
-	session_t *sess;
-	struct node_s *next;
-} node_t;
+typedef struct session_s {
+	char *id;          /* expected to be a string */
+	unsigned int uid;  /* user id */
+	unsigned char *data;
+	size_t data_len;
+} session_t;
 
-typedef struct store_s {
-	node_t *head;
-} store_t;
+session_t *session_create(const char *id, unsigned int uid, const unsigned char *data, size_t data_len);
+void session_destroy(session_t *s);
 
-void store_init(store_t *st);
-int store_add(store_t *st, session_t *s);
-session_t *store_get(store_t *st, const char *id);
-
-/*
- * Deletes a session by id.
- * Returns 1 if deleted, 0 if not found.
- */
-int store_delete(store_t *st, const char *id, session_t **out);
-
-void store_destroy(store_t *st);
+/* Update the data buffer */
+int session_set_data(session_t *s, const unsigned char *data, size_t data_len);
 
 #endif

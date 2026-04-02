@@ -1,60 +1,113 @@
 #include <stdlib.h>
 #include <string.h>
-#include "session.h"
 #include "store.h"
 
-#define MAX_SESSIONS 100
-
-/* On utilise Session car c'est ce que ton header définit */
-static Session *storage[MAX_SESSIONS] = {NULL};
-
-/**
- * store_add - Ajoute une session
- */
-int store_add(int id, const char *data)
+void store_init(store_t *st)
 {
-	int i;
-
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] == NULL)
-		{
-			storage[i] = session_create(id, data);
-			return (storage[i] ? 0 : -1);
-		}
-	}
-	return (-1);
+	if (st)
+		st->head = NULL;
 }
 
-/**
- * store_get - Récupère une session
- */
-Session *store_get(int id)
+static node_t *node_create(session_t *s)
 {
-	int i;
-
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] && storage[i]->id == id)
-			return (storage[i]);
-	}
-	return (NULL);
+	node_t *n = (node_t *)malloc(sizeof(*n));
+	if (!n)
+		return NULL;
+	n->sess = s;
+	n->next = NULL;
+	return n;
 }
 
-/**
- * store_cleanup - Libère la mémoire
- */
-void store_cleanup(void)
+int store_add(store_t *st, session_t *s)
 {
-	int i;
+	node_t *n, *cur;
 
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] != NULL)
-		{
-			/* On passe directement le pointeur, pas l'adresse (&) */
-			session_destroy(storage[i]);
-			storage[i] = NULL;
+	if (!st || !s || !s->id)
+		return 0;
+
+	cur = st->head;
+	while (cur) {
+		if (cur->sess && cur->sess->id && strcmp(cur->sess->id, s->id) == 0) {
+			session_destroy(s);
+			return 0;
 		}
+		cur = cur->next;
+	}
+
+	n = node_create(s);
+	if (!n) {
+		session_destroy(s);
+		return 0;
+	}
+
+	n->next = st->head;
+	st->head = n;
+	return 1;
+}
+
+session_t *store_get(store_t *st, const char *id)
+{
+	node_t *cur;
+
+	if (!st || !id)
+		return NULL;
+
+	cur = st->head;
+	while (cur) {
+		if (cur->sess && cur->sess->id && strcmp(cur->sess->id, id) == 0)
+			return cur->sess;
+		cur = cur->next;
+	}
+	return NULL;
+}
+
+int store_delete(store_t *st, const char *id, session_t **out)
+{
+	node_t *cur, *prev;
+
+	if (!st || !id)
+		return 0;
+
+	prev = NULL;
+	cur = st->head;
+
+	while (cur) {
+		if (cur->sess && cur->sess->id && strcmp(cur->sess->id, id) == 0) {
+			if (prev)
+				prev->next = cur->next;
+			else
+				st->head = cur->next;
+
+			if (out)
+				*out = cur->sess;
+			else
+				session_destroy(cur->sess);
+			free(cur);
+			return 1;
+		}
+		prev = cur;
+		cur = cur->next;
+	}
+
+	return 0;
+}
+
+void store_destroy(store_t *st)
+{
+	node_t *cur, *next;
+
+	if (!st)
+		return;
+
+	cur = st->head;
+	st->head = NULL;
+	while (cur) {
+		next = cur->next;
+
+		session_destroy(cur->sess);
+
+		free(cur);
+
+		cur = next;
 	}
 }

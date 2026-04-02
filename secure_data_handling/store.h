@@ -1,14 +1,27 @@
 #ifndef STORE_H
 #define STORE_H
 
-/* On prévient le compilateur que la structure Session existe */
-struct Session;
-typedef struct Session Session;
+#include "session.h"
 
-/* Maintenant on déclare les fonctions */
-int store_add(int id, const char *data);
-Session *store_get(int id);
-int store_delete(int id, Session **out);
-void store_cleanup(void);
+typedef struct node_s {
+	session_t *sess;
+	struct node_s *next;
+} node_t;
+
+typedef struct store_s {
+	node_t *head;
+} store_t;
+
+void store_init(store_t *st);
+int store_add(store_t *st, session_t *s);
+session_t *store_get(store_t *st, const char *id);
+
+/*
+ * Deletes a session by id.
+ * Returns 1 if deleted, 0 if not found.
+ */
+int store_delete(store_t *st, const char *id, session_t **out);
+
+void store_destroy(store_t *st);
 
 #endif

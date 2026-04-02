@@ -2,56 +2,79 @@
 #include <string.h>
 #include "session.h"
 
-/**
- * session_create - Creates a session using the 'Session' type
- */
-Session *session_create(int id, const char *data)
+session_t *session_create(const char *id, unsigned int uid, const unsigned char *data, size_t data_len)
 {
-	Session *s = malloc(sizeof(Session));
+	session_t *s;
 
+	s = (session_t *)malloc(sizeof(*s));
 	if (!s)
-		return (NULL);
+		return NULL;
 
-	s->id = id;
-	s->data = data ? strdup(data) : NULL;
+	       if (id) {
+		       s->id = strdup(id);
+		       if (!s->id) {
+			       free(s);
+			       return NULL;
+		       }
+	       } else {
+		       s->id = NULL;
+	       }
 
-	if (data && !s->data)
-	{
-		free(s);
-		return (NULL);
-	}
+	s->uid = uid;
 
-	return (s);
+	       if (data_len > 0) {
+		       s->data = (unsigned char *)malloc(data_len);
+		       if (!s->data) {
+			       free(s->id);
+			       free(s);
+			       return NULL;
+		       }
+		       memcpy(s->data, data, data_len);
+		       s->data_len = data_len;
+	       } else {
+		       s->data = NULL;
+		       s->data_len = 0;
+	       }
+
+	return s;
 }
 
-/**
- * session_destroy - Destroys the session
- */
-void session_destroy(Session *s)
+int session_set_data(session_t *s, const unsigned char *data, size_t data_len)
 {
-	if (s)
-	{
-		if (s->data)
+	unsigned char *tmp;
+
+	if (!s)
+		return 0;
+
+	if (data_len == 0) {
+		if (s->data) {
 			free(s->data);
-		free(s);
+			s->data = NULL;
+		}
+		s->data_len = 0;
+		return 1;
 	}
+
+	tmp = (unsigned char *)realloc(s->data, data_len);
+	if (!tmp) {
+		/* realloc failed, do not modify s->data or s->data_len */
+		return 0;
+	}
+	s->data = tmp;
+	memcpy(s->data, data, data_len);
+	s->data_len = data_len;
+	return 1;
 }
 
-/**
- * session_update_data - Updates session data
- */
-void session_update_data(Session *s, const char *new_data)
+void session_destroy(session_t *s)
 {
-	char *temp;
-
 	if (!s)
 		return;
 
-	temp = new_data ? strdup(new_data) : NULL;
-	if (new_data && !temp)
-		return;
+	       if (s->id)
+		       free(s->id);
 
-	if (s->data)
-		free(s->data);
-	s->data = temp;
+	       if (s->data)
+		       free(s->data);
+	       free(s);
 }

@@ -5,74 +5,52 @@
 
 #define MAX_SESSIONS 100
 
-static Session *storage[MAX_SESSIONS] = {NULL};
+/* Storage using the session_t handle (which is a pointer) */
+static session_t storage[MAX_SESSIONS] = {NULL};
 
 /**
- * store_add - Ajoute ou met à jour une session
+ * store_add - Adds a session handle to the store
  */
-int store_add(int id, const char *data)
+int store_add(store_t st, session_t s)
 {
 	int i;
+	(void)st; /* Ignored as per static storage implementation */
 
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] && storage[i]->id == id)
-		{
-			session_update_data(storage[i], data);
-			return (0);
-		}
-	}
+	if (!s)
+		return (-1);
 
 	for (i = 0; i < MAX_SESSIONS; i++)
 	{
 		if (storage[i] == NULL)
 		{
-			storage[i] = session_create(id, data);
-			return (storage[i] ? 0 : -1);
+			storage[i] = s;
+			return (0);
 		}
 	}
 	return (-1);
 }
 
 /**
- * store_get - Récupère une session par son ID
+ * store_get - Retrieves a session by its string ID
  */
-Session *store_get(int id)
+session_t store_get(store_t st, const char *id)
 {
 	int i;
+	(void)st;
+
+	if (!id)
+		return (NULL);
 
 	for (i = 0; i < MAX_SESSIONS; i++)
 	{
-		if (storage[i] && storage[i]->id == id)
+		if (storage[i] && storage[i]->id && strcmp(storage[i]->id, id) == 0)
 			return (storage[i]);
 	}
 	return (NULL);
 }
 
 /**
- * store_delete - LA FONCTION QUI MANQUAIT
- */
-int store_delete(int id, Session **out)
-{
-	int i;
-
-	for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		if (storage[i] && storage[i]->id == id)
-		{
-			if (out)
-				*out = storage[i];
-			else
-				session_destroy(storage[i]);
-			storage[i] = NULL;
-			return (0);
-		}
-	}
-	return (-1);
-}
-
-/**
- * store_cleanup - Nettoyage final pour Valgrind
+ * store_cleanup - Cleans up all sessions in the store
  */
 void store_cleanup(void)
 {
@@ -82,7 +60,8 @@ void store_cleanup(void)
 	{
 		if (storage[i] != NULL)
 		{
-			session_destroy(storage[i]);
+			/* Important: pass the address of the handle */
+			session_destroy(&storage[i]);
 			storage[i] = NULL;
 		}
 	}

@@ -1,0 +1,88 @@
+.TH HSH 1 "April 2026" "simple_shell" "User Commands"
+.SH NAME
+hsh \- interpreteur de commandes UNIX minimal
+.SH SYNOPSIS
+.B hsh
+.SH DESCRIPTION
+.B hsh
+lit des commandes depuis l'entree standard puis les execute.
+
+Fonctionnalites implementees (tasks 0 a 6):
+.RS
+- prompt en mode interactif
+.br
+- parsing de ligne avec arguments
+.br
+- recherche des executables dans PATH
+.br
+- built-ins: exit, env
+.br
+- gestion EOF (Ctrl+D)
+.RE
+
+Le format d'erreur pour une commande introuvable suit la forme:
+.RS
+prog_name: line_number: command: not found
+.RE
+
+Les commandes externes sont executees via
+.BR fork (2)
+et
+.BR execve (2),
+puis le parent attend la fin avec
+.BR waitpid (2).
+.SH RETURN VALUE
+Le shell retourne le dernier statut de commande connu.
+.SH ENVIRONMENT
+.B PATH
+est utilise pour rechercher les executables.
+
+Toutes les autres variables d'environnement sont heritees.
+.SH BUILTINS
+.TP
+.B exit
+Quitte le shell.
+.TP
+.B env
+Affiche l'environnement courant.
+.SH FILES
+.TP
+.B README.md
+Documentation complete du projet.
+.TP
+.B AUTHORS
+Liste des contributeurs.
+.TP
+.B man_1_simple_shell
+Cette page de manuel.
+.SH EXAMPLES
+Mode interactif:
+.PP
+.B ./hsh
+.br
+#cisfun$ ls -l
+.br
+#cisfun$ env
+.br
+#cisfun$ exit
+
+Mode non interactif:
+.PP
+.B echo "/bin/ls" | ./hsh
+.SH SEE ALSO
+.BR sh (1),
+.BR fork (2),
+.BR execve (2),
+.BR waitpid (2),
+.BR environ (7)
+.SH AUTHORS
+Consulter le fichier
+.B AUTHORS
+pour les contributeurs.
+.PP
+Contributeurs:
+.RS
+Elie <elliott.lanza@gmail.com>
+.br
+toxicgiosue <toxicgiosue@gmail.com>
+.RE
